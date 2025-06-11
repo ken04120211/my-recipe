@@ -3,22 +3,18 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "No pre-build required"
+        - pip install -r requirements.txt
     build:
       commands:
-        - echo "No build required"
+        - echo "Building static files"
+        - python3 -c "import os; os.makedirs('dist', exist_ok=True)"
+        - python3 -c "from flask import Flask, render_template; app = Flask(__name__, template_folder='templates'); @app.route('/') def index(): return render_template('index.html'); with app.test_request_context(): open('dist/index.html', 'w').write(index())"
     postBuild:
       commands:
-        - echo "No post-build required"
+        - echo "Post build complete"
   artifacts:
-    baseDirectory: /
+    baseDirectory: dist
     files:
       - '**/*'
   cache:
     paths: []
-backend:
-  phases:
-    deploy:
-      commands:
-        - pip install -r requirements.txt
-        - python app.py
