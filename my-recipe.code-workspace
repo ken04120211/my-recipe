@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "my-recipe",
+			"path": "."
+		},
+		{
+			"name": "templates",
+			"path": "../../work_space/my-recipe/Github/templates"
+		}
+	],
+	"settings": {}
+}

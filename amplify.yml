@@ -7,8 +7,9 @@ frontend:
     build:
       commands:
         - echo "Building static files"
-        - python3 -c 'import os; os.makedirs("dist", exist_ok=True)'
-        - python3 -c >
+        - python3 -c "import os; os.makedirs('dist', exist_ok=True)"
+        - |
+          python3 -c "
           from flask import Flask, render_template
           app = Flask(__name__, template_folder='templates')
           def index():
@@ -17,6 +18,7 @@ frontend:
           with app.test_request_context():
               with open('dist/index.html', 'w') as f:
                   f.write(render_template('index.html'))
+          "
     postBuild:
       commands:
         - echo "Post build complete"
