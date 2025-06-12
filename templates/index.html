@@ -74,14 +74,48 @@
 
         checkAuthState();
 
-        signUpButton.addEventListener('click', async () => {
-            // Implement sign-up logic here
-            alert('Sign Up functionality needs to be implemented.');
+signUpButton.addEventListener('click', async () => {
+            const username = prompt('Enter your username:');
+            const password = prompt('Enter your password:');
+            const email = prompt('Enter your email:');
+
+            try {
+                const { user } = await Amplify.Auth.signUp({
+                    username,
+                    password,
+                    attributes: {
+                        email,
+                    },
+                });
+                console.log('Sign-up successful:', user);
+
+                const confirmationCode = prompt('Enter the confirmation code:');
+                try {
+                    await Amplify.Auth.confirmSignUp(username, confirmationCode);
+                    console.log('Sign-up confirmed');
+                    alert('Sign-up confirmed! Please sign in.');
+                } catch (err) {
+                    console.log('Error confirming sign-up:', err);
+                    alert('Error confirming sign-up: ' + err.message);
+                }
+            } catch (err) {
+                console.log('Error signing up:', err);
+                alert('Error signing up: ' + err.message);
+            }
         });
 
         signInButton.addEventListener('click', async () => {
-            // Implement sign-in logic here
-            alert('Sign In functionality needs to be implemented.');
+signInButton.addEventListener('click', async () => {
+            const password = prompt('Enter your password:');
+
+            try {
+                const user = await Amplify.Auth.signIn(username, password);
+                console.log('Sign-in successful:', user);
+                checkAuthState();
+            } catch (err) {
+                console.log('Error signing in:', err);
+                alert('Error signing in: ' + err.message);
+            }
         });
 
         signOutButton.addEventListener('click', async () => {
