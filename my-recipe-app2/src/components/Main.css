@@ -29,3 +29,18 @@
   object-fit: cover;
   margin-bottom: 10px;
 }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.tag {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
