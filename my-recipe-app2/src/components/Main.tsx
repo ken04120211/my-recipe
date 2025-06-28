@@ -4,8 +4,19 @@ import { Link } from 'react-router-dom';
 import { Recipe } from '../Recipe';
 import { recipes } from '../recipeData';
 import './Main.css';
+import { useFavorites } from '../FavoritesContext';
 
 const Main: React.FC = () => {
+  const { favoriteRecipes, addFavorite, removeFavorite } = useFavorites();
+
+  const handleFavoriteClick = (recipe: Recipe) => {
+    if (favoriteRecipes.find((favRecipe) => favRecipe.id === recipe.id)) {
+      removeFavorite(recipe);
+    } else {
+      addFavorite(recipe);
+    }
+  };
+
   return (
     <main className="main-content">
       <section className="recommendation-section">
@@ -26,6 +37,11 @@ const Main: React.FC = () => {
                   </span>
                 ))}
               </div>
+              <button onClick={() => handleFavoriteClick(recipe)}>
+                {favoriteRecipes.find((favRecipe) => favRecipe.id === recipe.id)
+                  ? 'Remove from Favorites'
+                  : 'Add to Favorites'}
+              </button>
             </div>
           ))}
         </div>
@@ -49,6 +65,11 @@ const Main: React.FC = () => {
                   </span>
                 ))}
               </div>
+              <button onClick={() => handleFavoriteClick(recipe)}>
+                {favoriteRecipes.find((favRecipe) => favRecipe.id === recipe.id)
+                  ? 'Remove from Favorites'
+                  : 'Add to Favorites'}
+              </button>
             </div>
           ))}
         </div>
